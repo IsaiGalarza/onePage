@@ -8,21 +8,30 @@
         {{message}}
       </div>
       <div class="hero-actions mt-4">
-        <div class="btn btn-primary mr-3">
-          {{primaryCallToAction.text}}
-        </div>
-        <div class="btn btn-secondary">
-          {{secondaryCallToAction.text}}
-        </div>
+          <BaseButton
+            v-if="primaryCallToAction"
+            v-bind:text="primaryCallToAction.text"
+            v-bind:btnOnClick="primaryCallToAction.btnOnClick"
+            type="primary"
+            extraClass="mr-3"
+          />
+
+          <BaseButton
+            v-if="secondaryCallToAction"
+            v-bind:text="secondaryCallToAction.text"
+            v-bind:btnOnClick="secondaryCallToAction.btnOnClick"
+            type="secondary"
+          />
       </div>
     </div>
   </div>
 </template>
 
 <script>
+import BaseButton from '@/components/BaseButton';
+
 export default {
-  name: 'BaseHero',
-  // En lugar de obtener la información de data, la obtendremos de los props
+  name: 'Hero',
   props: {
     media: {
       type: String,
@@ -39,6 +48,9 @@ export default {
     primaryCallToAction: Object,
     secondaryCallToAction: Object,
   },
+  components: {
+    BaseButton,
+  },
 };
 </script>
 
@@ -47,7 +59,7 @@ export default {
   position: absolute;
   top: 0;
   left: 0;
-  height: 100vh;
+  height: 50vh;
   width: 100vw;
   background-position: center;
   background-repeat: no-repeat;
@@ -56,28 +68,21 @@ export default {
   justify-content: flex-end;
   align-items: center;
 }
+
 .hero-inner {
   text-align: right;
   color: #fff;
   margin-right: 50px;
   width: 50%;
 }
+
 .hero-title {
   font-size: 50px;
   text-transform: uppercase;
 }
+
 .hero-description {
   font-size: 20px;
   line-height: 25px;
-}
-.btn.btn-primary {
-  color: #fff;
-  background-color: #FF0079;
-  border-color: #FF0079;
-}
-.btn.btn-secondary {
-  color: #FF0079;
-  border: 2px solid #fff;
-  background-color: #fff;
 }
 </style>
